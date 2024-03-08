@@ -16,9 +16,9 @@
             <span th:text="${person.getUsername()}"></span> with roles:
             <span th:each="role : ${person.getAuthorities()}"
                   th:text="${role.getAuthority().replace('ROLE_', ' ') + ' '}"></span>
-            <div sec:authorize="hasRole('ROLE_ADMIN')">
-                <p>этот текст виден только 123 юзеру</p>
-            </div>
+<!--            <div sec:authorize="hasRole('ROLE_ADMIN')">-->
+<!--                <p>этот текст виден только 123 юзеру</p>-->
+<!--            </div>-->
         </div>
         <div>
 
@@ -79,8 +79,6 @@
                     <td th:text="${user.age}"></td>
                     <td th:text="${user.email}"></td>
                     <td th:text="${user.roles}"></td>
-                    <!--                    <td><a th:href="@{/admin/update(id=${user.id})}">Edit</a></td>-->
-                    <!--                    <td><a th:href="@{/admin/delete/{id}(id=${user.id})}">Delete</a></td>-->
                     <td>
                         <button type="button" class="btn btn-primary" data-toggle="modal"
                                 data-target="#staticBackdrop">
