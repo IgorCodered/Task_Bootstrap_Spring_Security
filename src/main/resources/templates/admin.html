@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Admin page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+<div th:fragment="blackheader">
+    <div class="d-flex text-white">
+        <div class="p-2 w-100 bg-dark fs-5">
+            <span th:text="${person.getUsername()}"></span> with roles:
+            <span th:each="role : ${person.getAuthorities()}"
+                  th:text="${role.getAuthority().replace('ROLE_', ' ') + ' '}"></span>
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <p>этот текст виден только 123 юзеру</p>
+            </div>
+        </div>
+        <div>
+
+        <div class="p-2 bg-dark">
+            <a class="text-secondary text-decoration-none pe-3" href="/logout">Logout</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-2 mt-2">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin}">Admin</a>
+                <li class="nav-item">
+                    <a class="nav-link btn-primary btn-block" href="#">User</a>
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="col-md-10 mt-3 bg-light bg-gradient" style="color: black">
+
+            <div class="tabbable" id="tabs-673832">
+                <h1>Admin panel</h1>
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link" href="" data-toggle="tab">Users table</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active show" href="#tab2" data-toggle="tab">New user</a>
+                    </li>
+                </ul>
+            </div>
+
+            <table class="table table-striped table-bordered table-sm mt-2" id="userTable">
+                <thead class="thead-gray mr-md-3">
+                <h4 class="mt-2">All users</h4>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">First name</th>
+                    <th scope="col">Last name</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">E-mail</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${user.firstName}"></td>
+                    <td th:text="${user.lastName}"></td>
+                    <td th:text="${user.age}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td th:text="${user.roles}"></td>
+                    <!--                    <td><a th:href="@{/admin/update(id=${user.id})}">Edit</a></td>-->
+                    <!--                    <td><a th:href="@{/admin/delete/{id}(id=${user.id})}">Delete</a></td>-->
+                    <td>
+                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#staticBackdrop">
+                            Edit
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+                            Delete
+                        </button>
+                    </td>
+
+                </tbody>
+                <!--Модальное окно редактирования пользователя-->
+                <div class="modal fade"
+                     id="staticBackdrop"
+                     data-backdrop="static"
+                     data-keyboard="false" tabindex="-1"
+                     aria-labelledby="staticBackdropLabel"
+                     aria-hidden="true">
+
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Edit user</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <!--                                <form th:method="PATCH" th:action="@{/admin/edit/{id}(id=${user.id})}" th:object="${users}">-->
+                                <!--                                    <label for="username">Измените логин</label>-->
+                                <!--                                    <input type="text" th:value="*{username}" id="username">-->
+                                <!--                                </form>-->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Edit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>
