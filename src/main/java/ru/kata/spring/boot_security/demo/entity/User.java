@@ -24,7 +24,6 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(name = "username")
-//    @NotEmpty(message = "Username не должен быть пустым")
     private String username;
 
     @Column(name = "firstName")
@@ -41,8 +40,6 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
-//    private boolean admin;
-
     @Column(name = "age")
     private int age;
 
@@ -55,8 +52,6 @@ public class User implements UserDetails {
         this.password = password;
         this.age = age;
         this.roles = roles;
-//        this.admin = admin;
-
     }
 
     @ManyToMany(fetch = FetchType.EAGER)
