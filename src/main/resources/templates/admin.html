@@ -103,6 +103,74 @@
                                                                 data-target="delete">Delete
                                                         </button>
                                                     </td>
+                                                    <div aria-hidden="true" aria-labelledby="editModalLabel" class="modal" tabindex="-1" th:id="'editModal' + ${user.id}" >
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <form id="formEditUser" th:method="PUT" th:action="@{admin/edit/{id}(id=${user.getId()})}" th:object="${user}">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLongTitle">Edit user</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body" style="padding-left: 120px; padding-right: 120px;">
+
+                                                                        <div class="form-group text-center">
+                                                                            <label for="idEdit" class="font-weight-bold">ID</label>
+                                                                            <input class="form-control form-control-sm" id="idEdit" name="id" readonly th:value="*{id}"
+                                                                                   type="text">
+                                                                        </div>
+
+                                                                        <div class="form-group text-center">
+                                                                            <label for="firstName" class="font-weight-bold">First name</label>
+                                                                            <input class="form-control form-control-sm" id="firstname" name="firstName" th:value="*{firstName}"
+                                                                                   type="text">
+                                                                        </div>
+
+                                                                        <div class="form-group text-center">
+                                                                            <label for="lastName" class="font-weight-bold">Last name</label>
+                                                                            <input class="form-control form-control-sm" id="lastName" name="lastName" th:value="*{lastName}"
+                                                                                   type="text">
+                                                                        </div>
+
+                                                                        <div class="form-group text-center">
+                                                                            <label for="emailEdit" class="font-weight-bold">Email</label>
+                                                                            <input class="form-control form-control-sm" id="emailEdit" name="email" th:value="*{email}"
+                                                                                   type="email">
+                                                                        </div>
+
+                                                                        <div class="form-group text-center">
+                                                                            <label for="age" class="font-weight-bold">Age</label>
+                                                                            <input class="form-control form-control-sm" id="age1" name="age" th:value="*{age}"
+                                                                                   type="number">
+                                                                        </div>
+
+                                                                        <div class="form-group text-center">
+                                                                            <label for="passwordEdit" class="font-weight-bold">Password</label>
+                                                                            <input class="form-control form-control-sm" id="passwordEdit" name="password" type="password" placeholder="Password">
+                                                                        </div>
+                                                                        <div class="form-group text-center">
+                                                                            <label for="editRolesUser" class="font-weight-bold">Role</label>
+                                                                            <select class="form-control" name="roles" id="editRolesUser" size="2" multiple required>
+                                                                                <option th:each="role : ${roles}"
+                                                                                        th:value="${role.id}"
+                                                                                        th:text="${role.name}"></option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="editFormCloseButton">
+                                                                            Close
+                                                                        </button>
+                                                                        <button type="submit" class="btn btn-primary">
+                                                                            Edit
+                                                                        </button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                 </tbody>
                                             </table>
                                         </div>
@@ -121,29 +189,22 @@
                                                         <div class="form-group text-center">
                                                             <label for="firstNameAdd"
                                                                    class="font-weight-bold">First name</label>
-                                                            <input type="text" class="form-control" name="name"
-                                                                   id="firstNameAdd" placeholder="name"/>
+                                                            <input type="text" class="form-control" name="firstName"
+                                                                   id="firstNameAdd" placeholder="first name"/>
                                                         </div>
 
                                                         <div class="form-group text-center">
                                                             <label for="surnameAdd"
                                                                    class="font-weight-bold">Last Name</label>
-                                                            <input type="text" class="form-control" name="surname"
-                                                                   id="surnameAdd" placeholder="surname"/>
+                                                            <input type="text" class="form-control" name="lastName"
+                                                                   id="surnameAdd" placeholder="last name"/>
                                                         </div>
 
                                                         <div class="form-group text-center">
                                                             <label for="age"
                                                                    class="font-weight-bold">Age</label>
-                                                            <input type="text" class="form-control" name="surname"
-                                                                   id="age" placeholder="surname"/>
-                                                        </div>
-
-                                                        <div class="form-group text-center">
-                                                            <label for="usernameAdd"
-                                                                   class="font-weight-bold">Username</label>
-                                                            <input type="text" class="form-control" name="username"
-                                                                   id="usernameAdd" placeholder="username"/>
+                                                            <input type="text" class="form-control" name="age"
+                                                                   id="age" placeholder="age"/>
                                                         </div>
 
                                                         <div class="form-group text-center">
@@ -173,6 +234,7 @@
                                                         <button type="submit" id="newUserAddButton"
                                                                 class="btn btn-success">Add new user
                                                         </button>
+
                                                     </form>
                                                 </div>
                                             </div>
@@ -215,63 +277,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-<div aria-hidden="true" aria-labelledby="editModalLabel" class="modal" tabindex="-1" th:id="'editModal' + ${user.id}" >
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <form id="formEditUser" th:method="PUT" th:action="@{admin/edit/{id}(id=${user.getId()})}" th:object="${user}">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Edit user</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" style="padding-left: 120px; padding-right: 120px;">
-                    <div class="form-group text-center">
-                        <label for="idEdit" class="font-weight-bold">ID</label>
-                        <input class="form-control form-control-sm" id="idEdit" name="id" readonly th:value="*{id}"
-                               type="text">
-                    </div>
-                    <div class="form-group text-center">
-                        <label for="nameEdit" class="font-weight-bold">First name</label>
-                        <input class="form-control form-control-sm" id="nameEdit" name="name" th:value="*{name}"
-                               type="text">
-                    </div>
-                    <div class="form-group text-center">
-                        <label for="surnameEdit" class="font-weight-bold">Last name</label>
-                        <input class="form-control form-control-sm" id="surnameEdit" name="surname" th:value="*{surname}"
-                               type="text">
-                    </div>
-                    <div class="form-group text-center">
-                        <label for="emailEdit" class="font-weight-bold">Email</label>
-                        <input class="form-control form-control-sm" id="emailEdit" name="email" th:value="*{email}"
-                               type="text">
-                    </div>
-
-                    <div class="form-group text-center">
-                        <label for="passwordEdit" class="font-weight-bold">Password</label>
-                        <input class="form-control form-control-sm" id="passwordEdit" name="password" type="password">
-                    </div>
-                    <div class="form-group text-center">
-                        <label for="editRolesUser" class="font-weight-bold">Role</label>
-                        <select class="form-control" name="roles" id="editRolesUser" size="2" multiple required>
-                            <option th:each="role : ${roles}"
-                                    th:value="${role.id}"
-                                    th:text="${role.name}"></option>
-                        </select>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="editFormCloseButton">
-                        Close
-                    </button>
-                    <button type="submit" class="btn btn-primary">
-                        Edit
-                    </button>
-                </div>
-            </form>
         </div>
     </div>
 </div>
