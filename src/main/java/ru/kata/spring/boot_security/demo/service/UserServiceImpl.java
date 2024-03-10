@@ -29,7 +29,6 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-
     @Override
     public List<User> findAll() {
         return userRepository.findAll();
@@ -62,8 +61,9 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void updateUser(User user) {
         var userToBeUpdated = userRepository.findById(user.getId()).get();
-        userToBeUpdated.setUsername(user.getUsername());
-        userToBeUpdated.setPassword(user.getPassword());
+        userToBeUpdated.setFirstName(user.getFirstName());
+        userToBeUpdated.setLastName(user.getLastName());
+        userToBeUpdated.setPassword(passwordEncoder.encode(user.getPassword()));
         userToBeUpdated.setAge(user.getAge());
         userToBeUpdated.setRoles(user.getRoles());
         userToBeUpdated.setEmail(user.getEmail());

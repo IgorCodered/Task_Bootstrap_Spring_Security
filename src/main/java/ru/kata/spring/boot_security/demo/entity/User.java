@@ -10,7 +10,6 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -28,10 +27,10 @@ public class User implements UserDetails {
     @NotEmpty(message = "Username не должен быть пустым")
     private String username;
 
-    @Column(name = "first_name")
+    @Column(name = "firstName")
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "lastName")
     private String lastName;
 
     @Email
@@ -42,21 +41,21 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    boolean admin;
+//    private boolean admin;
 
     @Column(name = "age")
     private int age;
 
-    public User(String username, String firstName, String lastName,
-                String email, String password, int age, Set<Role> roles, boolean admin) {
-        this.username = username;
+    public User(String firstName, String lastName,
+                String email, String password, int age, Set<Role> roles) {
+        this.username = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.age = age;
         this.roles = roles;
-        this.admin = admin;
+//        this.admin = admin;
 
     }
 
@@ -101,4 +100,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }
