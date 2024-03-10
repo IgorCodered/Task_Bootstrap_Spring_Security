@@ -1,5 +1,6 @@
 package ru.kata.spring.boot_security.demo.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -8,14 +9,10 @@ import org.springframework.stereotype.Service;
 import ru.kata.spring.boot_security.demo.entity.User;
 
 @Service
+@RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     public final UserService userService;
-
-    @Autowired
-    public UserDetailsServiceImpl(UserService userService) {
-        this.userService = userService;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -23,7 +20,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("Пользователь не найден");
         }
-        System.out.println("Загружен пользователь: " + user.getUsername());
         return user;
     }
 }

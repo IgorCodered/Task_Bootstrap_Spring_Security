@@ -20,6 +20,7 @@ public class Init {
 
     @PostConstruct
     public void init() {
+
         Role roleAdmin = new Role("ROLE_ADMIN");
         Role roleUser = new Role("ROLE_USER");
 
@@ -29,11 +30,9 @@ public class Init {
         Set<Role> role = new HashSet<>();
         role.add(roleAdmin);
         role.add(roleUser);
+
         User admin = new User("Igor", "Elesin", "igor@mail.ru",
                 "100", 27, role);
-
-        System.out.println(role);
-        System.out.println(admin);
 
         User user = new User("Anton", "Nazarov", "anton@mail.ru",
                 "100", 25, role);
