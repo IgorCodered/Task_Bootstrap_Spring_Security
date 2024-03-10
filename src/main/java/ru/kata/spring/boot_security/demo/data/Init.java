@@ -1,5 +1,6 @@
 package ru.kata.spring.boot_security.demo.data;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.kata.spring.boot_security.demo.entity.Role;
@@ -12,16 +13,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Component
+@RequiredArgsConstructor
 public class Init {
 
     private final RoleService roleService;
     private final UserService userService;
-
-    @Autowired
-    public Init(RoleService roleService, UserService userService) {
-        this.roleService = roleService;
-        this.userService = userService;
-    }
 
     @PostConstruct
     public void init() {
