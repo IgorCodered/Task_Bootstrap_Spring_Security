@@ -43,7 +43,7 @@ public class AdminController {
     public String newUser(ModelMap map) {
         map.addAttribute("user", new User());
         map.addAttribute("availableRoles", roleService.findAll());
-        return "/registration";
+        return "admin";
     }
 
     @PostMapping("/create")

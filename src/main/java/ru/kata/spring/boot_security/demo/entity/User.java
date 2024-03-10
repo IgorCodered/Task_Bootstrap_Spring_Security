@@ -24,7 +24,7 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(name = "username")
-    @NotEmpty(message = "Username не должен быть пустым")
+//    @NotEmpty(message = "Username не должен быть пустым")
     private String username;
 
     @Column(name = "firstName")
@@ -78,7 +78,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return getEmail();
+        return this.email;
     }
 
     @Override
